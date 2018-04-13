@@ -56,8 +56,8 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(blogResponse -> {
-                    if (blogResponse != null && blogResponse.getData() != null) {
-                        blogListLiveData.setValue(blogResponse.getData());
+                    if (blogResponse != null && blogResponse.getMarkets() != null) {
+                        blogListLiveData.setValue(blogResponse.getMarkets());
                     }
                     setIsLoading(false);
                 }, throwable -> {

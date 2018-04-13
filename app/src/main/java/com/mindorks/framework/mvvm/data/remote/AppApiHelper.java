@@ -84,7 +84,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<BlogResponse> getBlogApiCall() {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_BLOG)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_IG_MARKETS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(BlogResponse.class);

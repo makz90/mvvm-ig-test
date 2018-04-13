@@ -26,6 +26,8 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_BLOG = BuildConfig.BASE_URL + "/5926ce9d11000096006ccb30";
 
+    public static final String ENDPOINT_IG_MARKETS = BuildConfig.BASE_IG_URL + "/en_GB/igi";
+
     public static final String ENDPOINT_FACEBOOK_LOGIN = BuildConfig.BASE_URL + "/588d15d3100000ae072d2944";
 
     public static final String ENDPOINT_GOOGLE_LOGIN = BuildConfig.BASE_URL + "/588d14f4100000a9072d2943";

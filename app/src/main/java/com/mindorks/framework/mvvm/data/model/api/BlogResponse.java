@@ -28,16 +28,22 @@ import java.util.List;
 public class BlogResponse {
 
     @Expose
-    @SerializedName("data")
-    private List<Blog> data;
+    @SerializedName("markets")
+    private List<Blog> markets;
 
     @Expose
-    @SerializedName("message")
-    private String message;
+    @SerializedName("chartFormat")
+    private String chartFormat;
 
     @Expose
-    @SerializedName("status_code")
-    private String statusCode;
+    @SerializedName("lightstreamerEndpoint")
+    private String lightstreamerEndpoint;
+
+
+    @Expose
+    @SerializedName("configuration")
+    private String configuration;
+
 
     @Override
     public boolean equals(Object o) {
@@ -50,61 +56,84 @@ public class BlogResponse {
 
         BlogResponse that = (BlogResponse) o;
 
-        if (!statusCode.equals(that.statusCode)) {
+        if (!lightstreamerEndpoint.equals(that.lightstreamerEndpoint)) {
             return false;
         }
-        if (!message.equals(that.message)) {
+        if (!chartFormat.equals(that.chartFormat)) {
             return false;
         }
-        return data.equals(that.data);
+        return markets.equals(that.markets);
 
     }
 
     @Override
     public int hashCode() {
-        int result = statusCode.hashCode();
-        result = 31 * result + message.hashCode();
-        result = 31 * result + data.hashCode();
+        int result = lightstreamerEndpoint.hashCode();
+        result = 31 * result + chartFormat.hashCode();
+        result = 31 * result + markets.hashCode();
         return result;
     }
 
-    public List<Blog> getData() {
-        return data;
+    public List<Blog> getMarkets() {
+        return markets;
     }
 
-    public String getMessage() {
-        return message;
+    public String getChartFormat() {
+        return chartFormat;
     }
 
-    public String getStatusCode() {
-        return statusCode;
+    public String getConfiguration() { return configuration; }
+
+    public String getLightstreamerEndpoint() {
+        return lightstreamerEndpoint;
     }
 
     public static class Blog {
 
         @Expose
-        @SerializedName("author")
-        private String author;
+        @SerializedName("instrumentName")
+        private String instrumentName;
 
         @Expose
-        @SerializedName("blog_url")
-        private String blogUrl;
+        @SerializedName("instrumentVersion")
+        private int instrumentVersion;
 
         @Expose
-        @SerializedName("img_url")
-        private String coverImgUrl;
+        @SerializedName("displayPeriod")
+        private String displayPeriod;
 
         @Expose
-        @SerializedName("published_at")
-        private String date;
+        @SerializedName("epic")
+        private String epic;
 
         @Expose
-        @SerializedName("description")
-        private String description;
+        @SerializedName("exchangeId")
+        private String exchangeId;
 
         @Expose
-        @SerializedName("title")
-        private String title;
+        @SerializedName("displayBid")
+        private String displayBid;
+
+        @Expose
+        @SerializedName("displayOffer")
+        private String displayOffer;
+
+        @Expose
+        @SerializedName("updateTime")
+        private String updateTime;
+
+        @Expose
+        @SerializedName("netChange")
+        private double netChange;
+
+        @Expose
+        @SerializedName("scaled")
+        private boolean scaled;
+
+        @Expose
+        @SerializedName("timezoneOffset")
+        private int timezoneOffset;
+
 
         @Override
         public boolean equals(Object o) {
@@ -117,58 +146,94 @@ public class BlogResponse {
 
             Blog blog = (Blog) o;
 
-            if (!blogUrl.equals(blog.blogUrl)) {
+            if (!displayPeriod.equals(blog.displayPeriod)) {
                 return false;
             }
-            if (!coverImgUrl.equals(blog.coverImgUrl)) {
+            if (!epic.equals(blog.epic)) {
                 return false;
             }
-            if (!title.equals(blog.title)) {
+            if (!displayOffer.equals(blog.displayOffer)) {
                 return false;
             }
-            if (!description.equals(blog.description)) {
+            if (!displayBid.equals(blog.displayBid)) {
                 return false;
             }
-            if (!author.equals(blog.author)) {
+            if (!instrumentName.equals(blog.instrumentName)) {
                 return false;
             }
-            return date.equals(blog.date);
+            if (instrumentVersion != blog.instrumentVersion) {
+                return false;
+            }
+            if (!updateTime.equals(blog.updateTime)) {
+                return false;
+            }
+            if (netChange != blog.netChange) {
+                return false;
+            }
+            if (scaled != blog.scaled) {
+                return false;
+            }
+            if (timezoneOffset != blog.timezoneOffset) {
+                return false;
+            }
+            return exchangeId.equals(blog.exchangeId);
 
         }
 
         @Override
         public int hashCode() {
-            int result = blogUrl.hashCode();
-            result = 31 * result + coverImgUrl.hashCode();
-            result = 31 * result + title.hashCode();
-            result = 31 * result + description.hashCode();
-            result = 31 * result + author.hashCode();
-            result = 31 * result + date.hashCode();
+            int result = displayPeriod.hashCode();
+            result = 31 * result + epic.hashCode();
+            result = 31 * result + displayOffer.hashCode();
+            result = 31 * result + displayBid.hashCode();
+            result = 31 * result + instrumentName.hashCode();
+            result = 31 * result + exchangeId.hashCode();
             return result;
         }
 
-        public String getAuthor() {
-            return author;
+        public String getInstrumentName() {
+            return instrumentName;
         }
 
-        public String getBlogUrl() {
-            return blogUrl;
+        public String getDisplayPeriod() {
+            return displayPeriod;
         }
 
-        public String getCoverImgUrl() {
-            return coverImgUrl;
+        public String getEpic() {
+            return epic;
         }
 
-        public String getDate() {
-            return date;
+        public String getExchangeId() {
+            return exchangeId;
         }
 
-        public String getDescription() {
-            return description;
+        public String getDisplayBid() {
+            return displayBid;
         }
 
-        public String getTitle() {
-            return title;
+        public String getDisplayOffer() {
+            return displayOffer;
         }
+
+        public int getInstrumentVersion() {
+            return instrumentVersion;
+        }
+
+        public String getUpdateTime() {
+            return updateTime;
+        }
+
+        public double getNetChange() {
+            return netChange;
+        }
+
+        public boolean getScaled() {
+            return scaled;
+        }
+
+        public int getTimezoneOffset() {
+            return timezoneOffset;
+        }
+
     }
 }

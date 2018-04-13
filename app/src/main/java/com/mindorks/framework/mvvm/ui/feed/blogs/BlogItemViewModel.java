@@ -32,8 +32,6 @@ public class BlogItemViewModel {
 
     public final ObservableField<String> date;
 
-    public final ObservableField<String> imageUrl;
-
     public final BlogItemViewModelListener mListener;
 
     public final ObservableField<String> title;
@@ -43,15 +41,14 @@ public class BlogItemViewModel {
     public BlogItemViewModel(BlogResponse.Blog blog, BlogItemViewModelListener listener) {
         this.mBlog = blog;
         this.mListener = listener;
-        imageUrl = new ObservableField<>(mBlog.getCoverImgUrl());
-        title = new ObservableField<>(mBlog.getTitle());
-        author = new ObservableField<>(mBlog.getAuthor());
-        date = new ObservableField<>(mBlog.getDate());
-        content = new ObservableField<>(mBlog.getDescription());
+        title = new ObservableField<>(mBlog.getDisplayOffer());
+        author = new ObservableField<>(mBlog.getInstrumentName());
+        date = new ObservableField<>(mBlog.getExchangeId());
+        content = new ObservableField<>(mBlog.getDisplayBid());
     }
 
     public void onItemClick() {
-        mListener.onItemClick(mBlog.getBlogUrl());
+        mListener.onItemClick(mBlog.getDisplayPeriod());
     }
 
     public interface BlogItemViewModelListener {
