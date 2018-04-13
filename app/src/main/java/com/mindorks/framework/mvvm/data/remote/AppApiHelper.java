@@ -83,8 +83,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<BlogResponse> getBlogApiCall() {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_IG_MARKETS)
+    public Single<BlogResponse> getBlogApiCall(String countryCode) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_IG_MARKETS + countryCode)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(BlogResponse.class);

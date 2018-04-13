@@ -24,6 +24,7 @@ import com.mindorks.framework.mvvm.BR;
 import com.mindorks.framework.mvvm.R;
 import com.mindorks.framework.mvvm.databinding.ActivitySplashBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
+import com.mindorks.framework.mvvm.ui.feed.FeedActivity;
 import com.mindorks.framework.mvvm.ui.login.LoginActivity;
 import com.mindorks.framework.mvvm.ui.main.MainActivity;
 
@@ -65,8 +66,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     }
 
     @Override
-    public void openMainActivity() {
-        Intent intent = MainActivity.newIntent(SplashActivity.this);
+    public void openFeedActivity() {
+        Intent intent = FeedActivity.newIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }

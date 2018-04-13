@@ -118,8 +118,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<BlogResponse> getBlogApiCall() {
-        return mApiHelper.getBlogApiCall();
+    public Single<BlogResponse> getBlogApiCall(String countryCode) {
+        return mApiHelper.getBlogApiCall(countryCode);
     }
 
     @Override

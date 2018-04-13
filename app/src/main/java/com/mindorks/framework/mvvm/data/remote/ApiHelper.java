@@ -40,7 +40,7 @@ public interface ApiHelper {
 
     ApiHeader getApiHeader();
 
-    Single<BlogResponse> getBlogApiCall();
+    Single<BlogResponse> getBlogApiCall(String countryCode);
 
     Single<OpenSourceResponse> getOpenSourceApiCall();
 }

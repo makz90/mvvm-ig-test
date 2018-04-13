@@ -37,6 +37,8 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
 
     private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
 
+    private String countryCode = "/en_GB/igi";
+
     public BlogViewModel(DataManager dataManager,
                          SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
@@ -52,7 +54,7 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
     public void fetchBlogs() {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .getBlogApiCall()
+                .getBlogApiCall(countryCode)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(blogResponse -> {
