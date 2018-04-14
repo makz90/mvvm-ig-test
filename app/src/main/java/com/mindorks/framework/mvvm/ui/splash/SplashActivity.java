@@ -67,7 +67,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void openFeedActivity() {
-        Intent intent = FeedActivity.newIntent(SplashActivity.this);
+        Intent intent = MainActivity.newIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }

@@ -72,12 +72,13 @@
 
                     </android.support.design.widget.AppBarLayout>
 
-                    <com.mindorks.placeholderview.SwipePlaceHolderView
-                        android:id="@+id/cardsContainer"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/blogRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:action="@{viewModel.action}"
-                        app:adapter="@{viewModel.questionDataList}" />
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        app:adapter="@{viewModel.blogObservableArrayList}"
+                        tools:listitem="@layout/item_blog_view" />
 
                 </LinearLayout>
             </android.support.design.widget.CoordinatorLayout>

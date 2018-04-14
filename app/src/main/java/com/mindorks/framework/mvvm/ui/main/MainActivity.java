@@ -24,13 +24,14 @@ import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,16 +40,18 @@ import android.view.View;
 import com.mindorks.framework.mvvm.BR;
 import com.mindorks.framework.mvvm.BuildConfig;
 import com.mindorks.framework.mvvm.R;
+import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.databinding.ActivityMainBinding;
 import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
 import com.mindorks.framework.mvvm.ui.about.AboutFragment;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
 import com.mindorks.framework.mvvm.ui.feed.FeedActivity;
+import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
+import com.mindorks.framework.mvvm.ui.feed.blogs.BlogNavigator;
 import com.mindorks.framework.mvvm.ui.login.LoginActivity;
 import com.mindorks.framework.mvvm.ui.main.rating.RateUsDialog;
-import com.mindorks.framework.mvvm.utils.ScreenUtils;
-import com.mindorks.placeholderview.SwipeDecor;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -56,22 +59,29 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel>
+        implements MainNavigator, HasSupportFragmentInjector, BlogNavigator, BlogAdapter.BlogAdapterListener {
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+
     private ActivityMainBinding mActivityMainBinding;
-    private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
     private MainViewModel mMainViewModel;
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
+    private BlogAdapter mBlogAdapter;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
+    }
+
+    @Override
+    public void onRetryClick() {
+        mMainViewModel.fetchBlogs();
     }
 
     @Override
@@ -93,6 +103,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void handleError(Throwable throwable) {
         // handle error
+    }
+
+    @Override
+    public void updateBlog(List<BlogResponse.Blog> blogList) {
+        mBlogAdapter.addItems(blogList);
     }
 
     @Override
@@ -163,6 +178,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
+        mBlogAdapter = new BlogAdapter(mMainViewModel.blogObservableArrayList);
+        mBlogAdapter.setListener(this);
         setUp();
     }
 
@@ -184,7 +201,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mDrawer = mActivityMainBinding.drawerView;
         mToolbar = mActivityMainBinding.toolbar;
         mNavigationView = mActivityMainBinding.navigationView;
-        mCardsContainerView = mActivityMainBinding.cardsContainer;
 
         setSupportActionBar(mToolbar);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
@@ -210,36 +226,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         String version = getString(R.string.version) + " " + BuildConfig.VERSION_NAME;
         mMainViewModel.updateAppVersion(version);
         mMainViewModel.onNavMenuCreated();
-        setupCardContainerView();
+        setupBlogRecyclerView();
         subscribeToLiveData();
     }
 
-    private void setupCardContainerView() {
-        int screenWidth = ScreenUtils.getScreenWidth(this);
-        int screenHeight = ScreenUtils.getScreenHeight(this);
-
-        mCardsContainerView.getBuilder()
-                .setDisplayViewCount(3)
-                .setHeightSwipeDistFactor(10)
-                .setWidthSwipeDistFactor(5)
-                .setSwipeDecor(new SwipeDecor()
-                        .setViewWidth((int) (0.90 * screenWidth))
-                        .setViewHeight((int) (0.75 * screenHeight))
-                        .setPaddingTop(20)
-                        .setSwipeRotationAngle(10)
-                        .setRelativeScale(0.01f));
-
-        mCardsContainerView.addItemRemoveListener(count -> {
-            if (count == 0) {
-                // reload the contents again after 1 sec delay
-                new Handler(getMainLooper()).postDelayed(() -> {
-                    //Reload once all the cards are removed
-                    mMainViewModel.loadQuestionCards();
-                }, 800);
-            } else {
-                mMainViewModel.removeQuestionCard();
-            }
-        });
+    private void setupBlogRecyclerView() {
+        mActivityMainBinding.blogRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mActivityMainBinding.blogRecyclerView.setAdapter(mBlogAdapter);
     }
 
     private void setupNavMenu() {
@@ -281,7 +274,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     private void subscribeToLiveData() {
-        mMainViewModel.getQuestionCardData().observe(this, questionCardDatas -> mMainViewModel.setQuestionDataList(questionCardDatas));
+        mMainViewModel.getBlogListLiveData().observe(this, blogs -> mMainViewModel.addBlogItemsToList(blogs));
     }
 
     private void unlockDrawer() {

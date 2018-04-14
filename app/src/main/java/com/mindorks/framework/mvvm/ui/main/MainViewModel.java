@@ -23,6 +23,7 @@ import android.databinding.ObservableList;
 import android.text.TextUtils;
 
 import com.mindorks.framework.mvvm.data.DataManager;
+import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.data.model.others.QuestionCardData;
 import com.mindorks.framework.mvvm.ui.base.BaseViewModel;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
@@ -49,12 +50,20 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
 
+    public final ObservableList<BlogResponse.Blog> blogObservableArrayList = new ObservableArrayList<>();
+
+    private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
+
+    private String countryCode = "/en_GB/igi";
+
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         questionCardData = new MutableLiveData<>();
+        blogListLiveData = new MutableLiveData<>();
         loadQuestionCards();
+        fetchBlogs();
     }
 
     public int getAction() {
@@ -146,5 +155,35 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void updateAppVersion(String version) {
         appVersion.set(version);
+    }
+
+    public void addBlogItemsToList(List<BlogResponse.Blog> blogs) {
+        blogObservableArrayList.clear();
+        blogObservableArrayList.addAll(blogs);
+    }
+
+    public void fetchBlogs() {
+        setIsLoading(true);
+        getCompositeDisposable().add(getDataManager()
+                .getBlogApiCall(countryCode)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(blogResponse -> {
+                    if (blogResponse != null && blogResponse.getMarkets() != null) {
+                        blogListLiveData.setValue(blogResponse.getMarkets());
+                    }
+                    setIsLoading(false);
+                }, throwable -> {
+                    setIsLoading(false);
+                    getNavigator().handleError(throwable);
+                }));
+    }
+
+    public MutableLiveData<List<BlogResponse.Blog>> getBlogListLiveData() {
+        return blogListLiveData;
+    }
+
+    public ObservableList<BlogResponse.Blog> getBlogObservableList() {
+        return blogObservableArrayList;
     }
 }

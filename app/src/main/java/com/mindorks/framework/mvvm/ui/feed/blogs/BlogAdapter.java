@@ -100,7 +100,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public interface BlogAdapterListener {
-
         void onRetryClick();
     }
 
