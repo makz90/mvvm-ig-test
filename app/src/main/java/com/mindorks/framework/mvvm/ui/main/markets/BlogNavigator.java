@@ -14,27 +14,19 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.data.model.others;
+package com.mindorks.framework.mvvm.ui.main.markets;
 
-import com.mindorks.framework.mvvm.data.model.db.Option;
-import com.mindorks.framework.mvvm.data.model.db.Question;
+import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 
 import java.util.List;
 
 /**
- * Created by amitshekhar on 09/07/17.
+ * Created by amitshekhar on 10/07/17.
  */
 
-public class QuestionCardData {
+public interface BlogNavigator {
 
-    public boolean mShowCorrectOptions;
+    void handleError(Throwable throwable);
 
-    public List<Option> options;
-
-    public Question question;
-
-    public QuestionCardData(Question question, List<Option> options) {
-        this.question = question;
-        this.options = options;
-    }
+    void updateBlog(List<BlogResponse.Blog> blogList);
 }

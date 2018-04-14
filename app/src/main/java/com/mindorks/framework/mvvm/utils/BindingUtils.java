@@ -23,10 +23,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
-import com.mindorks.framework.mvvm.data.model.others.QuestionCardData;
-import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
-import com.mindorks.framework.mvvm.ui.main.MainViewModel;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
 
 import java.util.List;
 

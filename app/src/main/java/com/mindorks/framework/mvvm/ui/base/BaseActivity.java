@@ -43,9 +43,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity
         implements BaseFragment.Callback {
 
-    // TODO
-    // this can probably depend on isLoading variable of BaseViewModel,
-    // since its going to be common for all the activities
     private ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
@@ -121,11 +118,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     public boolean isNetworkConnected() {
         return NetworkUtils.isNetworkConnected(getApplicationContext());
-    }
-
-    public void openActivityOnTokenExpire() {
-        startActivity(LoginActivity.newIntent(this));
-        finish();
     }
 
     public void performDependencyInjection() {

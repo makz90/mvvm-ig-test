@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.ui.feed.blogs;
+package com.mindorks.framework.mvvm.ui.main.markets;
 
 import android.content.Intent;
 import android.net.Uri;

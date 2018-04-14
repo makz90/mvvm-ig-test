@@ -43,22 +43,16 @@ import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.databinding.ActivityMainBinding;
 import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
-import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
-import com.mindorks.framework.mvvm.ui.feed.blogs.BlogNavigator;
+import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
+import com.mindorks.framework.mvvm.ui.main.markets.BlogNavigator;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel>
-        implements MainNavigator, HasSupportFragmentInjector, BlogNavigator, BlogAdapter.BlogAdapterListener {
+        implements MainNavigator, BlogNavigator, BlogAdapter.BlogAdapterListener {
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     @Inject
@@ -148,11 +142,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentDispatchingAndroidInjector;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
@@ -201,9 +190,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mDrawer.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         setupNavMenu();
-        String version = getString(R.string.version) + " " + BuildConfig.VERSION_NAME;
+        String version = "v " + BuildConfig.VERSION_NAME;
         mMainViewModel.updateAppVersion(version);
-        mMainViewModel.onNavMenuCreated();
         setupBlogRecyclerView();
         subscribeToLiveData();
     }
@@ -223,9 +211,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 item -> {
                     mDrawer.closeDrawer(GravityCompat.START);
                     switch (item.getItemId()) {
-                        case R.id.navItemAbout:
+                        case R.id.navItemUK:
+                            mMainViewModel.setCountryCode("/en_GB/igi");
+                            mMainViewModel.fetchBlogs();
                             return true;
-                        case R.id.navItemRateUs:
+                        case R.id.navItemFrance:
+                            mMainViewModel.setCountryCode("/de_DE/dem");
+                            mMainViewModel.fetchBlogs();
+                            return true;
+                        case R.id.navItemGermany:
+                            mMainViewModel.setCountryCode("/fr_FR/frm");
+                            mMainViewModel.fetchBlogs();
                             return true;
                         default:
                             return false;
