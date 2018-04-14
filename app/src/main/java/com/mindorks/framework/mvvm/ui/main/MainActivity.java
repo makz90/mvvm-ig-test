@@ -31,7 +31,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,13 +42,9 @@ import com.mindorks.framework.mvvm.R;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.databinding.ActivityMainBinding;
 import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
-import com.mindorks.framework.mvvm.ui.about.AboutFragment;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
-import com.mindorks.framework.mvvm.ui.feed.FeedActivity;
 import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
 import com.mindorks.framework.mvvm.ui.feed.blogs.BlogNavigator;
-import com.mindorks.framework.mvvm.ui.login.LoginActivity;
-import com.mindorks.framework.mvvm.ui.main.rating.RateUsDialog;
 
 import java.util.List;
 
@@ -66,13 +61,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+    @Inject
+    BlogAdapter mBlogAdapter;
 
     private ActivityMainBinding mActivityMainBinding;
     private DrawerLayout mDrawer;
     private MainViewModel mMainViewModel;
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
-    private BlogAdapter mBlogAdapter;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -108,17 +104,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void updateBlog(List<BlogResponse.Blog> blogList) {
         mBlogAdapter.addItems(blogList);
-    }
-
-    @Override
-    public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(AboutFragment.TAG);
-        if (fragment == null) {
-            super.onBackPressed();
-        } else {
-            onFragmentDetached(AboutFragment.TAG);
-        }
     }
 
     @Override
@@ -163,12 +148,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void openLoginActivity() {
-        startActivity(LoginActivity.newIntent(this));
-        finish();
-    }
-
-    @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
@@ -178,7 +157,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
-        mBlogAdapter = new BlogAdapter(mMainViewModel.blogObservableArrayList);
         mBlogAdapter.setListener(this);
         setUp();
     }
@@ -246,31 +224,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mDrawer.closeDrawer(GravityCompat.START);
                     switch (item.getItemId()) {
                         case R.id.navItemAbout:
-                            showAboutFragment();
                             return true;
                         case R.id.navItemRateUs:
-                            RateUsDialog.newInstance().show(getSupportFragmentManager());
-                            return true;
-                        case R.id.navItemFeed:
-                            startActivity(FeedActivity.newIntent(MainActivity.this));
-                            return true;
-                        case R.id.navItemLogout:
-                            mMainViewModel.logout();
                             return true;
                         default:
                             return false;
                     }
                 });
-    }
-
-    private void showAboutFragment() {
-        lockDrawer();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.clRootView, AboutFragment.newInstance(), AboutFragment.TAG)
-                .commit();
     }
 
     private void subscribeToLiveData() {

@@ -20,7 +20,10 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.mindorks.framework.mvvm.ViewModelProviderFactory;
 import com.mindorks.framework.mvvm.data.DataManager;
+import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
+
+import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -39,5 +42,10 @@ public class MainActivityModule {
     @Provides
     MainViewModel provideMainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         return new MainViewModel(dataManager, schedulerProvider);
+    }
+
+    @Provides
+    BlogAdapter provideBlogAdapter() {
+        return new BlogAdapter(new ArrayList<>());
     }
 }

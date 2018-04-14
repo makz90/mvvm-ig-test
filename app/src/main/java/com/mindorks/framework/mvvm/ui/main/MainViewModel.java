@@ -115,21 +115,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 }));
     }
 
-    public void logout() {
-        setIsLoading(true);
-        getCompositeDisposable().add(getDataManager().doLogoutApiCall()
-                .doOnSuccess(response -> getDataManager().setUserAsLoggedOut())
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-                    setIsLoading(false);
-                    getNavigator().openLoginActivity();
-                }, throwable -> {
-                    setIsLoading(false);
-                    getNavigator().handleError(throwable);
-                }));
-    }
-
     public void onNavMenuCreated() {
         final String currentUserName = getDataManager().getCurrentUserName();
         if (!TextUtils.isEmpty(currentUserName)) {
