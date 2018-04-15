@@ -16,10 +16,6 @@
 
 package com.mindorks.framework.mvvm.ui.main.markets;
 
-/**
- * Created by amitshekhar on 10/07/17.
- */
-
 public class MarketEmptyItemViewModel {
 
     private BlogEmptyItemViewModelListener mListener;

@@ -25,77 +25,121 @@
 
     </data>
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:onClick="@{() -> viewModel.onItemClick()}"
+        android:orientation="vertical"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="4dp">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@color/white"
-            android:onClick="@{() -> viewModel.onItemClick()}"
-            android:orientation="vertical"
-            app:cardCornerRadius="7dp"
-            app:cardElevation="4dp">
+            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="30dp">
+                android:layout_marginRight="5dp"
+                android:text="@{viewModel.instrumentName}"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Instrument name" />
 
-                <TextView
-                    android:id="@+id/titleTextView"
-                    style="@style/TextStyle.Heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@{viewModel.title}"
-                    tools:text="Android MVP Architecture" />
+            <TextView
+                android:layout_toRightOf="@+id/titleTextView"
+                android:layout_alignBottom="@+id/titleTextView"
+                android:paddingBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.versionString}"
+                android:textSize="14sp"
+                tools:text="version 123"
+                android:layout_toEndOf="@id/titleTextView" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal">
+            <android.support.v4.widget.Space
+                android:id="@+id/separator"
+                android:layout_below="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/authorTextView"
-                        style="@style/TextStyle.Title.Sub"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="@{viewModel.author}"
-                        tools:text="Amit Shekhar" />
+            <TextView
+                android:layout_alignTop="@+id/separator"
+                android:id="@+id/epicTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@{viewModel.epic}"
+                android:textStyle="normal"
+                android:textColor="@android:color/darker_gray"
+                tools:text="EXPIC PLACEHOLDER"/>
 
-                    <TextView
-                        android:id="@+id/dateTextView"
-                        style="@style/TextStyle.Title.Sub"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="@{viewModel.date}"
-                        tools:text="23 Jan 2017" />
-                </RelativeLayout>
+            <TextView
+                android:layout_toRightOf="@+id/epicTextView"
+                android:layout_toEndOf="@+id/epicTextView"
+                android:layout_alignTop="@+id/separator"
+                android:id="@+id/idTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.exchangeIdString}"
+                android:textStyle="normal"
+                android:textColor="@android:color/darker_gray"
+                tools:text="ID PLACEHOLDER"/>
 
-                <TextView
-                    android:id="@+id/contentTextView"
-                    style="@style/TextStyle.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{viewModel.content}"
-                    android:textStyle="normal"
-                    tools:text="This repository contains a detailed sample app that implements MVP architecture using Dagger2, GreenDao, RxJava2, FastAndroidNetworking and PlaceholderView" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+            <TextView
+                android:layout_below="@+id/epicTextView"
+                android:id="@+id/bidTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_display_bid"/>
+
+            <TextView
+                android:layout_below="@+id/bidTextView"
+                android:id="@+id/offerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_display_offer"/>
+
+            <TextView
+                android:layout_below="@+id/offerTextView"
+                android:id="@+id/netTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_net_change"/>
+
+            <TextView
+                android:layout_alignBottom="@+id/bidTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.displayBid}"
+                tools:text="123123.123"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_alignBottom="@+id/offerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.displayOffer}"
+                tools:text="123123.123"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_alignBottom="@+id/netTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.netChangeString}"
+                tools:text="123123.123"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </layout>

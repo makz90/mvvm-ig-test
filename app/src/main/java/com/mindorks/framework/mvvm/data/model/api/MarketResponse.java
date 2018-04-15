@@ -215,9 +215,7 @@ public class MarketResponse {
             return displayOffer;
         }
 
-        public int getInstrumentVersion() {
-            return instrumentVersion;
-        }
+        public int getInstrumentVersion() { return instrumentVersion; }
 
         public String getUpdateTime() {
             return updateTime;

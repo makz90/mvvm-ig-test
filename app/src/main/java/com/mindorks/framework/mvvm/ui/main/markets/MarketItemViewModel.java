@@ -16,35 +16,50 @@
 
 package com.mindorks.framework.mvvm.ui.main.markets;
 
+import android.databinding.ObservableDouble;
 import android.databinding.ObservableField;
+import android.databinding.ObservableFloat;
+import android.databinding.ObservableInt;
 
 import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 
-/**
- * Created by amitshekhar on 10/07/17.
- */
-
 public class MarketItemViewModel {
 
-    public final ObservableField<String> author;
+    public final ObservableField<String> instrumentName;
 
-    public final ObservableField<String> content;
+    public final ObservableField<String> displayBid;
 
-    public final ObservableField<String> date;
+    public final ObservableField<String> displayOffer;
 
-    public final MarketItemViewModelListener mListener;
+    public final ObservableField<String> displayPeriod;
 
-    public final ObservableField<String> title;
+    public final ObservableField<String> epic;
+
+    public final ObservableField<String> updateTime;
+
+    public final ObservableField<String> versionString;
+
+    public final ObservableField<String> exchangeIdString;
+
+    public final ObservableField<String> netChangeString;
 
     private final MarketResponse.Market mMarket;
+
+    public final MarketItemViewModelListener mListener;
 
     public MarketItemViewModel(MarketResponse.Market market, MarketItemViewModelListener listener) {
         this.mMarket = market;
         this.mListener = listener;
-        title = new ObservableField<>(mMarket.getDisplayOffer());
-        author = new ObservableField<>(mMarket.getInstrumentName());
-        date = new ObservableField<>(mMarket.getExchangeId());
-        content = new ObservableField<>(mMarket.getDisplayBid());
+
+        instrumentName = new ObservableField<>(mMarket.getInstrumentName());
+        displayOffer = new ObservableField<>(mMarket.getDisplayOffer());
+        displayPeriod = new ObservableField<>(mMarket.getDisplayPeriod());
+        epic = new ObservableField<>(mMarket.getEpic());
+        updateTime = new ObservableField<>(mMarket.getUpdateTime());
+        displayBid = new ObservableField<>(mMarket.getDisplayBid());
+        versionString = new ObservableField<>("(version " + mMarket.getInstrumentVersion() + ")");
+        exchangeIdString = new ObservableField<>("(ID: " + mMarket.getExchangeId() + ")");
+        netChangeString = new ObservableField<>(String.valueOf(mMarket.getNetChange()));
     }
 
     public void onItemClick() {

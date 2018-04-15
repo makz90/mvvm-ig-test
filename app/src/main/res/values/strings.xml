@@ -37,4 +37,9 @@
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
     <string name="ig_name">Test App</string>
+
+    <!--Markets-->
+    <string name="text_display_bid">Display bid:</string>
+    <string name="text_display_offer">Display offer:</string>
+    <string name="text_net_change">Net change:</string>
 </resources>
