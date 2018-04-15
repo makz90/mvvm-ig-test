@@ -40,9 +40,9 @@ import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 import com.mindorks.framework.mvvm.databinding.ActivityMainBinding;
 import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
+import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 import com.mindorks.framework.mvvm.ui.main.markets.MarketAdapter;
 import com.mindorks.framework.mvvm.ui.main.markets.MarketNavigator;
-import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 
 import java.util.List;
 

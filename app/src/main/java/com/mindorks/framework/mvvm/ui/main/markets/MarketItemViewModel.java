@@ -16,10 +16,7 @@
 
 package com.mindorks.framework.mvvm.ui.main.markets;
 
-import android.databinding.ObservableDouble;
 import android.databinding.ObservableField;
-import android.databinding.ObservableFloat;
-import android.databinding.ObservableInt;
 
 import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 

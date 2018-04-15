@@ -28,7 +28,6 @@ import com.mindorks.framework.mvvm.data.local.prefs.AppPreferencesHelper;
 import com.mindorks.framework.mvvm.data.local.prefs.PreferencesHelper;
 import com.mindorks.framework.mvvm.data.remote.ApiHelper;
 import com.mindorks.framework.mvvm.data.remote.AppApiHelper;
-import com.mindorks.framework.mvvm.di.ApiInfo;
 import com.mindorks.framework.mvvm.di.DatabaseInfo;
 import com.mindorks.framework.mvvm.di.PreferenceInfo;
 import com.mindorks.framework.mvvm.utils.AppConstants;
