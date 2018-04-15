@@ -25,11 +25,11 @@ import java.util.List;
  * Created by amitshekhar on 07/07/17.
  */
 
-public class BlogResponse {
+public class MarketResponse {
 
     @Expose
     @SerializedName("markets")
-    private List<Blog> markets;
+    private List<Market> markets;
 
     @Expose
     @SerializedName("chartFormat")
@@ -50,11 +50,11 @@ public class BlogResponse {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof BlogResponse)) {
+        if (!(o instanceof MarketResponse)) {
             return false;
         }
 
-        BlogResponse that = (BlogResponse) o;
+        MarketResponse that = (MarketResponse) o;
 
         if (!lightstreamerEndpoint.equals(that.lightstreamerEndpoint)) {
             return false;
@@ -74,7 +74,7 @@ public class BlogResponse {
         return result;
     }
 
-    public List<Blog> getMarkets() {
+    public List<Market> getMarkets() {
         return markets;
     }
 
@@ -88,7 +88,7 @@ public class BlogResponse {
         return lightstreamerEndpoint;
     }
 
-    public static class Blog {
+    public static class Market {
 
         @Expose
         @SerializedName("instrumentName")
@@ -140,43 +140,43 @@ public class BlogResponse {
             if (this == o) {
                 return true;
             }
-            if (!(o instanceof Blog)) {
+            if (!(o instanceof Market)) {
                 return false;
             }
 
-            Blog blog = (Blog) o;
+            Market market = (Market) o;
 
-            if (!displayPeriod.equals(blog.displayPeriod)) {
+            if (!displayPeriod.equals(market.displayPeriod)) {
                 return false;
             }
-            if (!epic.equals(blog.epic)) {
+            if (!epic.equals(market.epic)) {
                 return false;
             }
-            if (!displayOffer.equals(blog.displayOffer)) {
+            if (!displayOffer.equals(market.displayOffer)) {
                 return false;
             }
-            if (!displayBid.equals(blog.displayBid)) {
+            if (!displayBid.equals(market.displayBid)) {
                 return false;
             }
-            if (!instrumentName.equals(blog.instrumentName)) {
+            if (!instrumentName.equals(market.instrumentName)) {
                 return false;
             }
-            if (instrumentVersion != blog.instrumentVersion) {
+            if (instrumentVersion != market.instrumentVersion) {
                 return false;
             }
-            if (!updateTime.equals(blog.updateTime)) {
+            if (!updateTime.equals(market.updateTime)) {
                 return false;
             }
-            if (netChange != blog.netChange) {
+            if (netChange != market.netChange) {
                 return false;
             }
-            if (scaled != blog.scaled) {
+            if (scaled != market.scaled) {
                 return false;
             }
-            if (timezoneOffset != blog.timezoneOffset) {
+            if (timezoneOffset != market.timezoneOffset) {
                 return false;
             }
-            return exchangeId.equals(blog.exchangeId);
+            return exchangeId.equals(market.exchangeId);
 
         }
 

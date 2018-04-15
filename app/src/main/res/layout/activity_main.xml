@@ -73,13 +73,13 @@
                     </android.support.design.widget.AppBarLayout>
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/blogRecyclerView"
+                        android:id="@+id/marketRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                        app:adapter="@{viewModel.blogObservableArrayList}"
+                        app:adapter="@{viewModel.marketObservableArrayList}"
                         tools:listitem="@layout/item_market_view" />
 
                 </LinearLayout>

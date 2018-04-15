@@ -22,8 +22,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
-import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
+import com.mindorks.framework.mvvm.ui.main.markets.MarketAdapter;
 
 import java.util.List;
 
@@ -38,11 +38,11 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"adapter"})
-    public static void addBlogItems(RecyclerView recyclerView, List<BlogResponse.Blog> blogs) {
-        BlogAdapter adapter = (BlogAdapter) recyclerView.getAdapter();
+    public static void addMarketItems(RecyclerView recyclerView, List<MarketResponse.Market> markets) {
+        MarketAdapter adapter = (MarketAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(blogs);
+            adapter.addItems(markets);
         }
     }
 

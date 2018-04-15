@@ -18,7 +18,7 @@ package com.mindorks.framework.mvvm.data;
 
 import android.content.Context;
 
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 import com.mindorks.framework.mvvm.data.remote.ApiHelper;
 
 import javax.inject.Inject;
@@ -26,9 +26,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 @Singleton
 public class AppDataManager implements DataManager {
 
@@ -43,7 +40,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<BlogResponse> getBlogApiCall(String countryCode) {
-        return mApiHelper.getBlogApiCall(countryCode);
+    public Single<MarketResponse> getMarketApiCall(String countryCode) {
+        return mApiHelper.getMarketApiCall(countryCode);
     }
 }

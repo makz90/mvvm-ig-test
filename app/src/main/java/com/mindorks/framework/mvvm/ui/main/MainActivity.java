@@ -21,8 +21,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -33,18 +31,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.mindorks.framework.mvvm.BR;
 import com.mindorks.framework.mvvm.BuildConfig;
 import com.mindorks.framework.mvvm.R;
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 import com.mindorks.framework.mvvm.databinding.ActivityMainBinding;
 import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
-import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
-import com.mindorks.framework.mvvm.ui.main.markets.BlogNavigator;
+import com.mindorks.framework.mvvm.ui.main.markets.MarketAdapter;
+import com.mindorks.framework.mvvm.ui.main.markets.MarketNavigator;
 import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 
 import java.util.List;
@@ -52,12 +49,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel>
-        implements MainNavigator, BlogNavigator, BlogAdapter.BlogAdapterListener {
+        implements MainNavigator, MarketNavigator, MarketAdapter.MarketAdapterListener {
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     @Inject
-    BlogAdapter mBlogAdapter;
+    MarketAdapter mMarketAdapter;
 
     private ActivityMainBinding mActivityMainBinding;
     private DrawerLayout mDrawer;
@@ -72,7 +69,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onRetryClick() {
-        mMainViewModel.fetchBlogs();
+        mMainViewModel.fetchMarkets();
     }
 
     @Override
@@ -97,8 +94,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void updateBlog(List<BlogResponse.Blog> blogList) {
-        mBlogAdapter.addItems(blogList);
+    public void updateMarket(List<MarketResponse.Market> marketList) {
+        mMarketAdapter.addItems(marketList);
     }
 
     @Override
@@ -127,7 +124,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
-        mBlogAdapter.setListener(this);
+        mMarketAdapter.setListener(this);
         setUp();
     }
 
@@ -173,13 +170,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         setupNavMenu();
         String version = "v " + BuildConfig.VERSION_NAME;
         mMainViewModel.updateAppVersion(version);
-        setupBlogRecyclerView();
+        setupMarketRecyclerView();
         subscribeToLiveData();
     }
 
-    private void setupBlogRecyclerView() {
-        mActivityMainBinding.blogRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mActivityMainBinding.blogRecyclerView.setAdapter(mBlogAdapter);
+    private void setupMarketRecyclerView() {
+        mActivityMainBinding.marketRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mActivityMainBinding.marketRecyclerView.setAdapter(mMarketAdapter);
     }
 
     private void setupNavMenu() {
@@ -196,13 +193,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 item -> {
                     mDrawer.closeDrawer(GravityCompat.START);
                     mMainViewModel.setSelectedApiEndpoint(item.getTitleCondensed().toString());
-                    mMainViewModel.fetchBlogs();
+                    mMainViewModel.fetchMarkets();
                     return true;
                 });
     }
 
     private void subscribeToLiveData() {
-        mMainViewModel.getBlogListLiveData().observe(this, blogs -> mMainViewModel.addBlogItemsToList(blogs));
+        mMainViewModel.getMarketListLiveData().observe(this, markets -> mMainViewModel.addMarketItemsToList(markets));
     }
 
     private void unlockDrawer() {

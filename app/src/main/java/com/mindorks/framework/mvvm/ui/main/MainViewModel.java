@@ -22,7 +22,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
 import com.mindorks.framework.mvvm.data.DataManager;
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 import com.mindorks.framework.mvvm.ui.base.BaseViewModel;
 import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
@@ -41,11 +41,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>("https://media.licdn.com/dms/image/C4E03AQHENonjQAHzPg/profile-displayphoto-shrink_100_100/0?e=1528930800&v=beta&t=nt1FjWvG3AMkrAiC6evAKCOkRAxnaZtBzHJR0-orouY");
 
-    public final ObservableList<BlogResponse.Blog> blogObservableArrayList = new ObservableArrayList<>();
+    public final ObservableList<MarketResponse.Market> marketObservableArrayList = new ObservableArrayList<>();
 
     public final ObservableList<CountryCode> countryCodeObservableArrayList = new ObservableArrayList<>();
 
-    private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
+    private final MutableLiveData<List<MarketResponse.Market>> marketListLiveData;
 
     private String selectedApiEndpoint;
 
@@ -53,9 +53,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        blogListLiveData = new MutableLiveData<>();
+        marketListLiveData = new MutableLiveData<>();
         initCountryCodes();
-        fetchBlogs();
+        fetchMarkets();
     }
 
     private void initCountryCodes() {
@@ -90,20 +90,20 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         appVersion.set(version);
     }
 
-    public void addBlogItemsToList(List<BlogResponse.Blog> blogs) {
-        blogObservableArrayList.clear();
-        blogObservableArrayList.addAll(blogs);
+    public void addMarketItemsToList(List<MarketResponse.Market> markets) {
+        marketObservableArrayList.clear();
+        marketObservableArrayList.addAll(markets);
     }
 
-    public void fetchBlogs() {
+    public void fetchMarkets() {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .getBlogApiCall(selectedApiEndpoint)
+                .getMarketApiCall(selectedApiEndpoint)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(blogResponse -> {
-                    if (blogResponse != null && blogResponse.getMarkets() != null) {
-                        blogListLiveData.setValue(blogResponse.getMarkets());
+                .subscribe(marketResponse -> {
+                    if (marketResponse != null && marketResponse.getMarkets() != null) {
+                        marketListLiveData.setValue(marketResponse.getMarkets());
                     }
                     setIsLoading(false);
                 }, throwable -> {
@@ -112,11 +112,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 }));
     }
 
-    public MutableLiveData<List<BlogResponse.Blog>> getBlogListLiveData() {
-        return blogListLiveData;
+    public MutableLiveData<List<MarketResponse.Market>> getMarketListLiveData() {
+        return marketListLiveData;
     }
 
-    public ObservableList<BlogResponse.Blog> getBlogObservableList() {
-        return blogObservableArrayList;
+    public ObservableList<MarketResponse.Market> getMarketObservableList() {
+        return marketObservableArrayList;
     }
 }

@@ -16,17 +16,13 @@
 
 package com.mindorks.framework.mvvm.data.remote;
 
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
@@ -35,10 +31,10 @@ public class AppApiHelper implements ApiHelper {
     public AppApiHelper(){}
 
     @Override
-    public Single<BlogResponse> getBlogApiCall(String countryCode) {
+    public Single<MarketResponse> getMarketApiCall(String countryCode) {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_IG_MARKETS + countryCode)
                 .build()
-                .getObjectSingle(BlogResponse.class);
+                .getObjectSingle(MarketResponse.class);
     }
 
 }

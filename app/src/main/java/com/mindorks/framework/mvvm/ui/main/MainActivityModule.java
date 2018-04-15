@@ -20,7 +20,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.mindorks.framework.mvvm.ViewModelProviderFactory;
 import com.mindorks.framework.mvvm.data.DataManager;
-import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
+import com.mindorks.framework.mvvm.ui.main.markets.MarketAdapter;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class MainActivityModule {
     }
 
     @Provides
-    BlogAdapter provideBlogAdapter() {
-        return new BlogAdapter(new ArrayList<>());
+    MarketAdapter provideMarketAdapter() {
+        return new MarketAdapter(new ArrayList<>());
     }
 }

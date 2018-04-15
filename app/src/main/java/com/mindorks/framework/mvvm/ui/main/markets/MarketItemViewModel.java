@@ -18,13 +18,13 @@ package com.mindorks.framework.mvvm.ui.main.markets;
 
 import android.databinding.ObservableField;
 
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 
 /**
  * Created by amitshekhar on 10/07/17.
  */
 
-public class BlogItemViewModel {
+public class MarketItemViewModel {
 
     public final ObservableField<String> author;
 
@@ -32,27 +32,27 @@ public class BlogItemViewModel {
 
     public final ObservableField<String> date;
 
-    public final BlogItemViewModelListener mListener;
+    public final MarketItemViewModelListener mListener;
 
     public final ObservableField<String> title;
 
-    private final BlogResponse.Blog mBlog;
+    private final MarketResponse.Market mMarket;
 
-    public BlogItemViewModel(BlogResponse.Blog blog, BlogItemViewModelListener listener) {
-        this.mBlog = blog;
+    public MarketItemViewModel(MarketResponse.Market market, MarketItemViewModelListener listener) {
+        this.mMarket = market;
         this.mListener = listener;
-        title = new ObservableField<>(mBlog.getDisplayOffer());
-        author = new ObservableField<>(mBlog.getInstrumentName());
-        date = new ObservableField<>(mBlog.getExchangeId());
-        content = new ObservableField<>(mBlog.getDisplayBid());
+        title = new ObservableField<>(mMarket.getDisplayOffer());
+        author = new ObservableField<>(mMarket.getInstrumentName());
+        date = new ObservableField<>(mMarket.getExchangeId());
+        content = new ObservableField<>(mMarket.getDisplayBid());
     }
 
     public void onItemClick() {
-        mListener.onItemClick(mBlog.getDisplayPeriod());
+        mListener.onItemClick(mMarket.getDisplayPeriod());
     }
 
-    public interface BlogItemViewModelListener {
+    public interface MarketItemViewModelListener {
 
-        void onItemClick(String blogUrl);
+        void onItemClick(String marketUrl);
     }
 }

@@ -16,15 +16,11 @@
 
 package com.mindorks.framework.mvvm.data.remote;
 
-import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
 
 import io.reactivex.Single;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
-
 public interface ApiHelper {
 
-    Single<BlogResponse> getBlogApiCall(String countryCode);
+    Single<MarketResponse> getMarketApiCall(String countryCode);
 }

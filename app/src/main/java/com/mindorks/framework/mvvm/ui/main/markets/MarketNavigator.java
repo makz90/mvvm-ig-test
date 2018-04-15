@@ -16,24 +16,17 @@
 
 package com.mindorks.framework.mvvm.ui.main.markets;
 
+import com.mindorks.framework.mvvm.data.model.api.MarketResponse;
+
+import java.util.List;
+
 /**
  * Created by amitshekhar on 10/07/17.
  */
 
-public class BlogEmptyItemViewModel {
+public interface MarketNavigator {
 
-    private BlogEmptyItemViewModelListener mListener;
+    void handleError(Throwable throwable);
 
-    public BlogEmptyItemViewModel(BlogEmptyItemViewModelListener listener) {
-        this.mListener = listener;
-    }
-
-    public void onRetryClick() {
-        mListener.onRetryClick();
-    }
-
-    public interface BlogEmptyItemViewModelListener {
-
-        void onRetryClick();
-    }
+    void updateMarket(List<MarketResponse.Market> marketList);
 }
