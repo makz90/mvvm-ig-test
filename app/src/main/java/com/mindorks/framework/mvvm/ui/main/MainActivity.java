@@ -45,6 +45,7 @@ import com.mindorks.framework.mvvm.databinding.NavHeaderMainBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseActivity;
 import com.mindorks.framework.mvvm.ui.main.markets.BlogAdapter;
 import com.mindorks.framework.mvvm.ui.main.markets.BlogNavigator;
+import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 
 import java.util.List;
 
@@ -122,26 +123,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Drawable drawable = item.getIcon();
-        if (drawable instanceof Animatable) {
-            ((Animatable) drawable).start();
-        }
-        switch (item.getItemId()) {
-            case R.id.action_cut:
-                return true;
-            case R.id.action_copy:
-                return true;
-            case R.id.action_share:
-                return true;
-            case R.id.action_delete:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
@@ -207,25 +188,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding.navigationView.addHeaderView(navHeaderMainBinding.getRoot());
         navHeaderMainBinding.setViewModel(mMainViewModel);
 
+        for (CountryCode cc : mMainViewModel.countryCodeObservableArrayList) {
+            mNavigationView.getMenu().add(cc.getName()).setIcon(R.drawable.ic_info_24px);
+        }
+
         mNavigationView.setNavigationItemSelectedListener(
                 item -> {
                     mDrawer.closeDrawer(GravityCompat.START);
-                    switch (item.getItemId()) {
-                        case R.id.navItemUK:
-                            mMainViewModel.setCountryCode("/en_GB/igi");
-                            mMainViewModel.fetchBlogs();
-                            return true;
-                        case R.id.navItemFrance:
-                            mMainViewModel.setCountryCode("/de_DE/dem");
-                            mMainViewModel.fetchBlogs();
-                            return true;
-                        case R.id.navItemGermany:
-                            mMainViewModel.setCountryCode("/fr_FR/frm");
-                            mMainViewModel.fetchBlogs();
-                            return true;
-                        default:
-                            return false;
-                    }
+                    int id = item.getItemId();
+                    if (item.getItemId() < 0) return false;
+                    mMainViewModel.setSelectedApiEndpoint("/en_GB/igi");
+                    mMainViewModel.fetchBlogs();
+                    return true;
                 });
     }
 

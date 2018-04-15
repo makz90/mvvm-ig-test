@@ -15,24 +15,12 @@
   -->
 
 <resources>
-    <string name="app_name">MvvmApp</string>
-
-    <!--Toolbar menus-->
-    <string name="clear">Clear</string>
-    <string name="cut">Cut</string>
-    <string name="copy">Copy</string>
-    <string name="paste">Paste</string>
-    <string name="delete">Delete</string>
-    <string name="share">Share</string>
+    <string name="app_name">IgTestApp</string>
 
     <!--Drawer-->
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>
 
-    <!--Drawer Menus-->
-    <string name="uk">UK</string>
-    <string name="france">France</string>
-    <string name="germany">Germany</string>
 
     <!--App Message-->
     <string name="api_retry_error">Please retry!</string>
@@ -48,4 +36,5 @@
     <string name="empty_screen">We do not have anything\nhere right now.</string>
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
+    <string name="ig_name">Test App</string>
 </resources>

@@ -14,21 +14,4 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group>
-        <item
-            android:id="@+id/navItemUK"
-            android:checked="true"
-            android:icon="@drawable/ic_info_24px"
-            android:title="@string/uk" />
-        <item
-            android:id="@+id/navItemFrance"
-            android:checked="true"
-            android:icon="@drawable/ic_rss_symbol"
-            android:title="@string/france" />
-        <item
-            android:id="@+id/navItemGermany"
-            android:checked="true"
-            android:icon="@drawable/ic_power_settings_new_24px"
-            android:title="@string/germany" />
-    </group>
 </menu>

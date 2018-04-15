@@ -24,10 +24,6 @@ import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
-
 public abstract class BaseViewModel<N> extends ViewModel {
 
     private final DataManager mDataManager;

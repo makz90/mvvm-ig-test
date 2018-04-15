@@ -28,9 +28,6 @@ import java.util.ArrayList;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
 @Module
 public class MainActivityModule {
 

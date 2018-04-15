@@ -30,10 +30,6 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
-
 public class MvvmApp extends Application implements HasActivityInjector {
 
     @Inject

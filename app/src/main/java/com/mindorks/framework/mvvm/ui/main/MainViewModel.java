@@ -24,13 +24,10 @@ import android.databinding.ObservableList;
 import com.mindorks.framework.mvvm.data.DataManager;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.ui.base.BaseViewModel;
+import com.mindorks.framework.mvvm.ui.main.markets.CountryCode;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
 
 import java.util.List;
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class MainViewModel extends BaseViewModel<MainNavigator> {
 
@@ -46,24 +43,35 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public final ObservableList<BlogResponse.Blog> blogObservableArrayList = new ObservableArrayList<>();
 
+    public final ObservableList<CountryCode> countryCodeObservableArrayList = new ObservableArrayList<>();
+
     private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
 
-    private String countryCode = "/en_GB/igi";
+    private String selectedApiEndpoint;
 
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         blogListLiveData = new MutableLiveData<>();
+        initCountryCodes();
         fetchBlogs();
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    private void initCountryCodes() {
+        countryCodeObservableArrayList.clear();
+        countryCodeObservableArrayList.add(new CountryCode("UK", "/en_GB/igi"));
+        countryCodeObservableArrayList.add(new CountryCode("France", "/fr_FR/frm"));
+        countryCodeObservableArrayList.add(new CountryCode("Germany", "/de_DE/dem"));
+        selectedApiEndpoint = countryCodeObservableArrayList.get(0).getApiEndpoint();
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public String getSelectedApiEndpoint() {
+        return selectedApiEndpoint;
+    }
+
+    public void setSelectedApiEndpoint(String selectedApiEndpoint) {
+        this.selectedApiEndpoint = selectedApiEndpoint;
     }
 
     public ObservableField<String> getAppVersion() {
@@ -90,7 +98,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void fetchBlogs() {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .getBlogApiCall(countryCode)
+                .getBlogApiCall(selectedApiEndpoint)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(blogResponse -> {

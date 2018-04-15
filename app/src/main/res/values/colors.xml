@@ -32,6 +32,13 @@
     <color name="fb">#3b5998</color>
     <color name="google">#d34836</color>
 
+    <!--Reds-->
+    <color name="red1">#10d34836</color>
+    <color name="red2">#20d34836</color>
+    <color name="red3">#30d34836</color>
+    <color name="red4">#40d34836</color>
+    <color name="red5">#50d34836</color>
+
     <!--Design colors-->
     <color name="red_dark">#F06423</color>
     <color name="red_dark2">#D85A1B</color>
