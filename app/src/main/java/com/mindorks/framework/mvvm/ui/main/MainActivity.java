@@ -172,6 +172,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.updateAppVersion(version);
         setupMarketRecyclerView();
         subscribeToLiveData();
+        mToolbar.setTitle(mNavigationView.getMenu().getItem(0).getTitle() + " Market");
     }
 
     private void setupMarketRecyclerView() {
@@ -194,6 +195,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mDrawer.closeDrawer(GravityCompat.START);
                     mMainViewModel.setSelectedApiEndpoint(item.getTitleCondensed().toString());
                     mMainViewModel.fetchMarkets();
+                    mToolbar.setTitle(item.getTitle() + " Market");
                     return true;
                 });
     }
