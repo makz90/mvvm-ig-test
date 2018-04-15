@@ -76,9 +76,11 @@
                         android:id="@+id/blogRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                         app:adapter="@{viewModel.blogObservableArrayList}"
-                        tools:listitem="@layout/item_blog_view" />
+                        tools:listitem="@layout/item_market_view" />
 
                 </LinearLayout>
             </android.support.design.widget.CoordinatorLayout>

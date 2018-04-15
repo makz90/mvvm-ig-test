@@ -189,15 +189,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         navHeaderMainBinding.setViewModel(mMainViewModel);
 
         for (CountryCode cc : mMainViewModel.countryCodeObservableArrayList) {
-            mNavigationView.getMenu().add(cc.getName()).setIcon(R.drawable.ic_info_24px);
+            mNavigationView.getMenu().add(cc.getName()).setTitleCondensed(cc.getApiEndpoint()).setIcon(R.drawable.ic_info_24px);
         }
 
         mNavigationView.setNavigationItemSelectedListener(
                 item -> {
                     mDrawer.closeDrawer(GravityCompat.START);
-                    int id = item.getItemId();
-                    if (item.getItemId() < 0) return false;
-                    mMainViewModel.setSelectedApiEndpoint("/en_GB/igi");
+                    mMainViewModel.setSelectedApiEndpoint(item.getTitleCondensed().toString());
                     mMainViewModel.fetchBlogs();
                     return true;
                 });
